@@ -1,7 +1,7 @@
 #!groovy
 
 pipeline {
-//    agent { label 'sensen-build-slave-01' } 
+    agent { label 'sensen-build-slave-01' } 
 //	agent {
 //        docker {
 //            image 'maven:3.5.4-jdk-8'
@@ -14,7 +14,7 @@ pipeline {
         APP_NAME = 'deors-demos-petclinic'
         APP_CONTEXT_ROOT = 'petclinic'
         TEST_CONTAINER_NAME = 'ci-${APP_NAME}-${BUILD_NUMBER}'
-	DOCKER_HOST = 'tcp://178.128.103.136:4243'
+//	DOCKER_HOST = 'tcp://178.128.103.136:4243'
     }
 
     stages {
