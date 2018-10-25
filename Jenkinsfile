@@ -24,7 +24,7 @@ pipeline {
                 script {
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- compiling project -=-"
-                sh "${mvnHome}/bin/mvn' clean compile"
+                sh "'${mvnHome}/bin/mvn' clean compile"
                 }
            }     
         }
