@@ -1,0 +1,8 @@
+#!/bin/bash
+docker run --name ci-deors-demos-petclinic \
+  --detach --rm \
+  --network ci \
+  --expose 6300 \
+  --publish 58080:8080 --publish 56300:6300\
+  --env JAVA_OPTS="-javaagent:/usr/local/tomcat/jacocoagent.jar=output=tcpserver,address=*,port=6300" \
+  deors/deors-demos-petclinic:latest
