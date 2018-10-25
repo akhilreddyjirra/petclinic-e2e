@@ -2,12 +2,12 @@
 
 pipeline {
 //    agent { label 'sensen-build-slave-01' } 
-	agent {
-        docker {
-            image 'maven:3.5.4-jdk-8'
-            args '--network ci --mount type=volume,source=ci-maven-home,target=/root/.m2'
-        }
-    }
+//	agent {
+//        docker {
+//            image 'maven:3.5.4-jdk-8'
+//            args '--network ci --mount type=volume,source=ci-maven-home,target=/root/.m2'
+//        }
+//    }
 
     environment {
         ORG_NAME = 'deors'
@@ -52,7 +52,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 echo "-=- build Docker image -=-"
-                sh "export DOCKER_HOST=tcp://178.128.103.136:4243 && mvn docker:build"
+                sh "mvn docker:build"
             }
         }
 
