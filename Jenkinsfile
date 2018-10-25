@@ -14,7 +14,7 @@ pipeline {
         APP_NAME = 'deors-demos-petclinic'
         APP_CONTEXT_ROOT = 'petclinic'
         TEST_CONTAINER_NAME = 'ci-${APP_NAME}-${BUILD_NUMBER}'
-	DOCKER_HOST = 'tcp://127.0.0.1:4243'
+	DOCKER_HOST = 'tcp://178.128.103.136:4243'
     }
 
     stages {
@@ -52,7 +52,7 @@ pipeline {
         stage('Build Docker image') {
             steps {
                 echo "-=- build Docker image -=-"
-                sh "export DOCKER_HOST=tcp://127.0.0.1:4243 && mvn docker:build"
+                sh "export DOCKER_HOST=tcp://178.128.103.136:4243 && mvn docker:build"
             }
         }
 
