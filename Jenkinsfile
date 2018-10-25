@@ -10,8 +10,6 @@ pipeline {
 //    }
 
     environment {
-        M2_HOME ='/opt/maven'
-        PATH = '${M2_HOME}/bin:${PATH}'
         ORG_NAME = 'deors'
         APP_NAME = 'deors-demos-petclinic'
         APP_CONTEXT_ROOT = 'petclinic'
@@ -22,8 +20,9 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
+                def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- compiling project -=-"
-                sh "mvn clean compile"
+                sh "${mvnHome}/bin/mvn' clean compile"
             }
         }
 
