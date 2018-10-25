@@ -10,6 +10,8 @@ pipeline {
 //    }
 
     environment {
+        M2_HOME ='/opt/maven'
+        PATH = '${M2_HOME}/bin:${PATH}'
         ORG_NAME = 'deors'
         APP_NAME = 'deors-demos-petclinic'
         APP_CONTEXT_ROOT = 'petclinic'
