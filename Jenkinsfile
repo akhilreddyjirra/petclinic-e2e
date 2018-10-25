@@ -1,7 +1,7 @@
 #!groovy
 
 pipeline {
-    agent { label 'sensen-build-slave-01' } 
+//    agent { label 'sensen-build-slave-01' } 
 	agent {
         docker {
             image 'maven:3.5.4-jdk-8'
