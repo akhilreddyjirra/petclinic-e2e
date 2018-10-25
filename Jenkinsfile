@@ -14,7 +14,7 @@ pipeline {
         APP_NAME = 'deors-demos-petclinic'
         APP_CONTEXT_ROOT = 'petclinic'
         TEST_CONTAINER_NAME = 'ci-${APP_NAME}-${BUILD_NUMBER}'
-	DOCKER_HOST=tcp://127.0.0.1:4243
+	DOCKER_HOST = 'tcp://127.0.0.1:4243'
     }
 
     stages {
