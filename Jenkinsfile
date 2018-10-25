@@ -10,6 +10,7 @@ pipeline {
 //    }
 
     environment {
+        
         ORG_NAME = 'deors'
         APP_NAME = 'deors-demos-petclinic'
         APP_CONTEXT_ROOT = 'petclinic'
@@ -20,10 +21,12 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
+                script {
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- compiling project -=-"
                 sh "${mvnHome}/bin/mvn' clean compile"
-            }
+                }
+           }     
         }
 
         stage('Unit tests') {
