@@ -97,6 +97,7 @@ pipeline {
         stage('Performance tests') {
             steps {
                 script {
+                def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- execute performance tests -=-"
                 sh "'${mvnHome}/bin/mvn' jmeter:jmeter jmeter:results -Djmeter.target.host=${TEST_CONTAINER_NAME} -Djmeter.target.port=8080 -Djmeter.target.root=${APP_CONTEXT_ROOT}"
                 perfReport sourceDataFiles: 'target/jmeter/results/*.csv', errorUnstableThreshold: 0, errorFailedThreshold: 5, errorUnstableResponseTimeThreshold: 'petclinic.jtl:100'
@@ -107,6 +108,7 @@ pipeline {
         stage('Dependency vulnerability tests') {
             steps {
                 script {
+                def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- run dependency vulnerability tests -=-"
                 sh "'${mvnHome}/bin/mvn' dependency-check:check"
                 dependencyCheckPublisher failedTotalHigh: '30', unstableTotalHigh: '25', failedTotalNormal: '110', unstableTotalNormal: '100'
@@ -137,6 +139,7 @@ pipeline {
         stage('Push Docker image') {
             steps {
                 script {
+                def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- push Docker image -=-"
                 sh "'${mvnHome}/bin/mvn' docker:push"
                 }
