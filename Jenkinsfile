@@ -84,6 +84,7 @@ pipeline {
         stage('Integration tests') {
             steps {
                 script {
+                def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- execute integration tests -=-"
                 sh "'${mvnHome}/bin/mvn' failsafe:integration-test failsafe:verify -DargLine=\"-Dtest.selenium.hub.url=http://selenium-hub:4444/wd/hub -Dtest.target.server.url=http://${TEST_CONTAINER_NAME}:8080/${APP_CONTEXT_ROOT}\""
                 sh "java -jar target/dependency/jacococli.jar dump --address ${TEST_CONTAINER_NAME} --port 6300 --destfile target/jacoco-it.exec"
