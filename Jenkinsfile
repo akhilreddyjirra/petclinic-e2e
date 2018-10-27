@@ -34,7 +34,7 @@ pipeline {
                 script {
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- execute unit tests -=-"
-                sh "mvn test"
+                sh "'${mvnHome}/bin/mvn' test"
                 junit 'target/surefire-reports/*.xml'
                 jacoco execPattern: 'target/jacoco.exec'
                 }
@@ -46,7 +46,7 @@ pipeline {
                 script{
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- execute mutation tests -=-"
-                sh "mvn org.pitest:pitest-maven:mutationCoverage"
+                sh "'${mvnHome}/bin/mvn' org.pitest:pitest-maven:mutationCoverage"
                 }
             }
         }
@@ -56,7 +56,7 @@ pipeline {
                 script{
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- packaging project -=-"
-                sh "mvn package -DskipTests"
+                sh "'${mvnHome}/bin/mvn' package -DskipTests"
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
                 }
             }
@@ -67,7 +67,7 @@ pipeline {
                 script {
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- build Docker image -=-"
-                sh "mvn docker:build"
+                sh "'${mvnHome}/bin/mvn' docker:build"
                 }
             }
         }
@@ -85,7 +85,7 @@ pipeline {
             steps {
                 script {
                 echo "-=- execute integration tests -=-"
-                sh "mvn failsafe:integration-test failsafe:verify -DargLine=\"-Dtest.selenium.hub.url=http://selenium-hub:4444/wd/hub -Dtest.target.server.url=http://${TEST_CONTAINER_NAME}:8080/${APP_CONTEXT_ROOT}\""
+                sh "'${mvnHome}/bin/mvn' failsafe:integration-test failsafe:verify -DargLine=\"-Dtest.selenium.hub.url=http://selenium-hub:4444/wd/hub -Dtest.target.server.url=http://${TEST_CONTAINER_NAME}:8080/${APP_CONTEXT_ROOT}\""
                 sh "java -jar target/dependency/jacococli.jar dump --address ${TEST_CONTAINER_NAME} --port 6300 --destfile target/jacoco-it.exec"
                 junit 'target/failsafe-reports/*.xml'
                 jacoco execPattern: 'target/jacoco-it.exec'
@@ -97,7 +97,7 @@ pipeline {
             steps {
                 script {
                 echo "-=- execute performance tests -=-"
-                sh "mvn jmeter:jmeter jmeter:results -Djmeter.target.host=${TEST_CONTAINER_NAME} -Djmeter.target.port=8080 -Djmeter.target.root=${APP_CONTEXT_ROOT}"
+                sh "'${mvnHome}/bin/mvn' jmeter:jmeter jmeter:results -Djmeter.target.host=${TEST_CONTAINER_NAME} -Djmeter.target.port=8080 -Djmeter.target.root=${APP_CONTEXT_ROOT}"
                 perfReport sourceDataFiles: 'target/jmeter/results/*.csv', errorUnstableThreshold: 0, errorFailedThreshold: 5, errorUnstableResponseTimeThreshold: 'petclinic.jtl:100'
                 }
             }
@@ -107,7 +107,7 @@ pipeline {
             steps {
                 script {
                 echo "-=- run dependency vulnerability tests -=-"
-                sh "mvn dependency-check:check"
+                sh "'${mvnHome}/bin/mvn' dependency-check:check"
                 dependencyCheckPublisher failedTotalHigh: '30', unstableTotalHigh: '25', failedTotalNormal: '110', unstableTotalNormal: '100'
                 }
             }
@@ -118,7 +118,7 @@ pipeline {
                 script {
                 echo "-=- run code inspection & check quality gate -=-"
                 withSonarQubeEnv('ci-sonarqube') {
-                    sh "mvn sonar:sonar"
+                    sh "'${mvnHome}/bin/mvn' sonar:sonar"
                 }
                 timeout(time: 10, unit: 'MINUTES') {
                     //waitForQualityGate abortPipeline: true
@@ -137,7 +137,7 @@ pipeline {
             steps {
                 script {
                 echo "-=- push Docker image -=-"
-                sh "mvn docker:push"
+                sh "'${mvnHome}/bin/mvn' docker:push"
                 }
             }
         }
