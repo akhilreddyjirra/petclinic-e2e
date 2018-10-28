@@ -100,6 +100,7 @@ pipeline {
                 script {
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- execute performance tests -=-"
+                sh " curl -v http://localhost:8080/petclinic"
                 sh "'${mvnHome}/bin/mvn' jmeter:jmeter jmeter:results -Djmeter.target.host=${TEST_CONTAINER_NAME} -Djmeter.target.port=8080 -Djmeter.target.root=${APP_CONTEXT_ROOT}"
                 perfReport sourceDataFiles: 'target/jmeter/results/*.csv', errorUnstableThreshold: 0, errorFailedThreshold: 5, errorUnstableResponseTimeThreshold: 'petclinic.jtl:100'
                 }
