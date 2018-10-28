@@ -82,18 +82,18 @@ pipeline {
             }
         }
 
-//        stage('Integration tests') {
-//            steps {
-//                script {
-//                def mvnHome = tool 'Maven 3.5.4'
-//                echo "-=- execute integration tests -=-"
+        stage('Integration tests') {
+            steps {
+               script {
+                def mvnHome = tool 'Maven 3.5.4'
+                echo "-=- execute integration tests -=-"
 //                sh "'${mvnHome}/bin/mvn' failsafe:integration-test failsafe:verify -DargLine=\"-Dtest.selenium.hub.url=http://selenium-hub:4444/wd/hub -Dtest.target.server.url=http://${TEST_CONTAINER_NAME}:8080/${APP_CONTEXT_ROOT}\""
 //                sh "java -jar target/dependency/jacococli.jar dump --address ${TEST_CONTAINER_NAME} --port 6300 --destfile target/jacoco-it.exec"
 //                junit 'target/failsafe-reports/*.xml'
 //                jacoco execPattern: 'target/jacoco-it.exec'
-//                }
-//            }
-//        }
+               }
+            }
+       }
 
         stage('Performance tests') {
             steps {
@@ -101,8 +101,8 @@ pipeline {
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- execute performance tests -=-"
                 sh " curl -v http://localhost:8080/petclinic"
-                sh "'${mvnHome}/bin/mvn' jmeter:jmeter jmeter:results -Djmeter.target.host=${TEST_CONTAINER_NAME} -Djmeter.target.port=8080 -Djmeter.target.root=${APP_CONTEXT_ROOT}"
-                perfReport sourceDataFiles: 'target/jmeter/results/*.csv', errorUnstableThreshold: 0, errorFailedThreshold: 5, errorUnstableResponseTimeThreshold: 'petclinic.jtl:100'
+             //   sh "'${mvnHome}/bin/mvn' jmeter:jmeter jmeter:results -Djmeter.target.host=${TEST_CONTAINER_NAME} -Djmeter.target.port=8080 -Djmeter.target.root=${APP_CONTEXT_ROOT}"
+             //   perfReport sourceDataFiles: 'target/jmeter/results/*.csv', errorUnstableThreshold: 0, errorFailedThreshold: 5, errorUnstableResponseTimeThreshold: 'petclinic.jtl:100'
                 }
             }
         }
