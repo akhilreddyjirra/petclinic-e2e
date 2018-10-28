@@ -14,7 +14,8 @@ pipeline {
         ORG_NAME = 'deors'
         APP_NAME = 'deors-demos-petclinic'
         APP_CONTEXT_ROOT = 'petclinic'
-        TEST_CONTAINER_NAME = 'ci-${APP_NAME}-${BUILD_NUMBER}'
+      //  TEST_CONTAINER_NAME = 'ci-${APP_NAME}-${BUILD_NUMBER}'
+        TEST_CONTAINER_NAME = 'ci-${APP_NAME}'
       //	DOCKER_HOST = 'tcp://178.128.103.136:4243'
     }
 
@@ -76,7 +77,7 @@ pipeline {
             steps {
                 script {
                 echo "-=- run Docker image -=-"
-                sh "docker run --name ${TEST_CONTAINER_NAME} --detach --rm --network ci --expose 6300 --env JAVA_OPTS='-javaagent:/usr/local/tomcat/jacocoagent.jar=output=tcpserver,address=*,port=6300' ${ORG_NAME}/${APP_NAME}:latest"
+                sh "docker run --name ${TEST_CONTAINER_NAME} --detach --rm --network ci -p 8080:8080 --expose 6300 --env JAVA_OPTS='-javaagent:/usr/local/tomcat/jacocoagent.jar=output=tcpserver,address=*,port=6300' ${ORG_NAME}/${APP_NAME}:latest"
                 }     
             }
         }
