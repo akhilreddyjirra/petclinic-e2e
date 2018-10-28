@@ -120,6 +120,7 @@ pipeline {
         stage('Code inspection & quality gate') {
             steps {
                 script {
+                def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- run code inspection & check quality gate -=-"
                 withSonarQubeEnv('sonarqube-server') {
                     sh "'${mvnHome}/bin/mvn' sonar:sonar"
