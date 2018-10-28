@@ -14,7 +14,7 @@ pipeline {
         ORG_NAME = 'deors'
         APP_NAME = 'deors-demos-petclinic'
         APP_CONTEXT_ROOT = 'petclinic'
-        TEST_CONTAINER_NAME = 'ci-${APP_NAME}'
+        TEST_CONTAINER_NAME = "ci-${APP_NAME}-${BUILD_NUMBER}"
       //	DOCKER_HOST = 'tcp://178.128.103.136:4243'
     }
 
