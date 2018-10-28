@@ -143,7 +143,7 @@ pipeline {
                 script {
                 def mvnHome = tool 'Maven 3.5.4'
                 echo "-=- push Docker image -=-"
-                sh "'${mvnHome}/bin/mvn' docker:push"
+               // sh "'${mvnHome}/bin/mvn' docker:push"
                 }
             }
         }
