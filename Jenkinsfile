@@ -121,7 +121,7 @@ pipeline {
             steps {
                 script {
                 echo "-=- run code inspection & check quality gate -=-"
-                withSonarQubeEnv('ci-sonarqube') {
+                withSonarQubeEnv('sonarqube-server') {
                     sh "'${mvnHome}/bin/mvn' sonar:sonar"
                 }
                 timeout(time: 10, unit: 'MINUTES') {
