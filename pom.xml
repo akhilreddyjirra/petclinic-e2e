@@ -65,7 +65,7 @@
         <dependency.version>3.0.2</dependency.version>
 
         <spotify-docker.version>1.1.1</spotify-docker.version>
-        <docker.image.prefix>deors</docker.image.prefix>
+        <docker.image.prefix>ram</docker.image.prefix>
 
         <cargo.version>1.6.4</cargo.version>
 
