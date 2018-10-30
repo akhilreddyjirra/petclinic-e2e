@@ -77,6 +77,7 @@ pipeline {
                 script {
                 echo "-=- run Docker image -=-"
                 sh "docker run --name ${TEST_CONTAINER_NAME} --detach --rm --network ci -p 8080:8080 --expose 6300 --env JAVA_OPTS='-javaagent:/usr/local/tomcat/jacocoagent.jar=output=tcpserver,address=*,port=6300' ${ORG_NAME}/${APP_NAME}:latest"
+                sh 'ping ${TEST_CONTAINER_NAME}'
                 }     
             }
         }
